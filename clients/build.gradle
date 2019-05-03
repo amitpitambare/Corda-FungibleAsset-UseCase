@@ -64,23 +64,19 @@ tasks.withType(JavaCompile) {
 }
 
 
-task runGSKServer(type: JavaExec, dependsOn: jar) {
+task runSellerServer(type: JavaExec, dependsOn: jar) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'net.gsk.webserver.Starter'
-    args '--server.port=50005', '--config.rpc.host=localhost', '--config.rpc.port=10005', '--config.rpc.username=user1', '--config.rpc.password=test'
+    args '--server.port=50005', '--config.rpc.host=localhost', '--config.rpc.port=10006', '--config.rpc.username=user1', '--config.rpc.password=test'
 }
 
 
-task runAetnaServer(type: JavaExec, dependsOn: jar) {
+task runBuyerServer(type: JavaExec, dependsOn: jar) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'net.gsk.webserver.Starter'
-    args '--server.port=50005', '--config.rpc.host=localhost', '--config.rpc.port=10013', '--config.rpc.username=user1', '--config.rpc.password=test'
+    args '--server.port=50006', '--config.rpc.host=localhost', '--config.rpc.port=10009', '--config.rpc.username=user1', '--config.rpc.password=test'
 }
 
-task runThirdPartyServer(type: JavaExec, dependsOn: jar) {
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'net.gsk.webserver.Starter'
-    args '--server.port=50005', '--config.rpc.host=localhost', '--config.rpc.port=10015', '--config.rpc.username=user1', '--config.rpc.password=test'
-}
+
 
 

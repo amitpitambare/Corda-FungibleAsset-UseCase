@@ -1,6 +1,6 @@
 package com.asp.cordapp.buyer.flows;
 
-import com.asp.cordaapp.seller.flows.AssetTransferRequestInitiateFlow;
+import com.asp.cordapp.seller.flows.AssetTransferRequestInitiateFlow;
 
 import co.paralleluniverse.fibers.Suspendable;
 import net.corda.core.flows.FlowException;

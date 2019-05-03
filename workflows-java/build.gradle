@@ -63,65 +63,42 @@ task deployNodes(type: Cordform, dependsOn: ['jar']) {
     nodeDefaults {
         cordapp project(":contracts-java")
     }
+   directory "./build/nodes"
     node {
-        name "O=Notary,L=London,C=GB"
-        notary = [validating : false]
-        p2pPort  10001
-       //p2pAddress "54.67.25.206:10001"
-        rpcSettings {
-            address("localhost:10002")
-            adminAddress("localhost:10003")
-        }
-        projectCordapp {
-            deploy = false
-        }
-        cordapps.clear()
+        name "O=Notary,L=New York,C=US"
+        notary = [validating: true]
+        p2pPort 10002
+        cordapps = [
+                "$project.group:cordapp-contracts-states:$project.version",
+                "$corda_release_group:corda-finance:$corda_release_version"
+        ]
     }
     node {
-        name "O=GSK,L=US,C=US"
-        p2pPort  10004
-      // p2pAddress "13.57.48.122:10004"
+        name "O=SecuritySeller,L=New York,C=US"
+        p2pPort 10005
         rpcSettings {
-            address("localhost:10005")
-            adminAddress("localhost:10006")
+            address("localhost:10006")
+            adminAddress("localhost:10046")
         }
-        extraConfig = [
-                // Setting the JMX reporter type.
-                jmxReporterType: 'JOLOKIA',
-                // Setting the H2 address.
-                h2Settings: [ address: 'localhost:10019' ]
+        cordapps = [
+                "$corda_release_group:corda-finance:$corda_release_version",
+                "$project.group:cordapp-contracts-states:$project.version",
+                "$project.group:cordapp-security-seller:$project.version"
         ]
-
         rpcUsers = [[user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
     node {
-        name "O=ABC Health Plan,L=US,C=US"
-        p2pPort  10007
-       // p2pAddress "13.56.16.112:10007"
+        name "O=SecurityBuyer,L=New York,C=US"
+        p2pPort 10008
         rpcSettings {
-            address("localhost:10013")
-            adminAddress("localhost:10014")
+            address("localhost:10009")
+            adminAddress("localhost:10049")
         }
-        extraConfig = [
-                // Setting the H2 address.
-                h2Settings: [ address: 'localhost:10018' ]
+        cordapps = [
+                "$corda_release_group:corda-finance:$corda_release_version",
+                "$project.group:cordapp-contracts-states:$project.version",
+                "$project.group:cordapp-security-seller:$project.version"
         ]
-
         rpcUsers = [[user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
-    node {
-       name "O=ThirdParty,L=US,C=US"
-       p2pPort  10008
-      // p2pAddress "54.193.24.57:10008"
-      rpcSettings {
-         address("localhost:10015")
-         adminAddress("localhost:10016")
-      }
-       extraConfig = [
-               // Setting the H2 address.
-             h2Settings: [ address: 'localhost:10017' ]
-        ]
-
-        rpcUsers = [[user: "user1", "password": "test", "permissions": ["ALL"]]]
-   }
 }

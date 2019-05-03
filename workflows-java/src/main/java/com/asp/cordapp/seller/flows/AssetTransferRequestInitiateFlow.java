@@ -1,4 +1,4 @@
-package com.asp.cordaapp.seller.flows;
+package com.asp.cordapp.seller.flows;
 
 
 
